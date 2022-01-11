@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+@model Client.Models.LoginModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <link href="@Url.Content("~/Content/Login.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            @using (Html.BeginForm("OnLogin", "Login", FormMethod.Post))
+            {
+                <h2>Авторизация</h2>
+                <h4 style="@(Model.BadData ? "" : "display:none")">Не правильное имя пользователя или пароль</h4>
+                @Html.ValidationSummary()
+                @Html.TextBoxFor(m => m.Login, new { @class = "fadeIn second", placeholder = "Login" })
+                @Html.PasswordFor(m => m.Password, new { @class = "fadeIn third", placeholder = "Password" })
+                <input type="submit" class="fadeIn fourth" value="Войти">
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿@using Client.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<ChildModel>
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Дети</h1>
+        @if (Session["userRole"].ToString() != "Parent")
+        {
+            <h2>
+                <a href="@Url.Action("AddChild", "Child")">Добавить ребенка</a>
+            </h2>
+        }
+    </center>
+    <div id="container">
+        <div class="col-2" align="left">
+            <input class="form-control" type="text" placeholder="Search" id="search-text" onkeyup="tableSearch()">
+        </div>
+        <br>
+        <table class="table table-striped" id="info-table">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Пол</th>
+                    <th>Д/Р</th>
+                    <th>Мать</th>
+                    <th>Отец</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ChildModel item in @Model)
+                {
+                    <tr>
+                        <td>@item.Fio</td>
+                        <td>@item.Gender</td>
+                        <td>@item.BirthsdayStr</td>
+                        <td>@item.MotherFio</td>
+                        <td>@item.FatherFio</td>
+                        <td>
+                            @if (Session["userRole"].ToString() != "Parent")
+                            {
+                            <div>
+                                @Html.ActionLink("X", "DeleteChild", "Child", item, new { @class = "btn  btn-outline-danger btn-sm" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.ActionLink("Изменить", "EditChild", "Child", item, new { @class = "btn btn-outline-warning btn-sm" })
+                            </div>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>
+

@@ -1,0 +1,43 @@
+﻿@model Client.Models.ReportParametersModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="margin-left: 30px; margin-top: 10px">
+    @using (Html.BeginForm("ShowHomeworkReport", "Report", FormMethod.Post, new { enctype = "multipart/form-data", target = "_blank" }))
+    {
+        <h2>Отчет по Домашним заданиям</h2>
+
+        @Html.ValidationSummary(true)
+
+        <div>
+            <div>
+                @Html.LabelFor(m => m.DateFrom, "Дата отправки сообщения от")
+                @Html.TextBoxFor(m => m.DateFrom, new { @id = "sessionDateFrom" })
+            </div>
+            <div style=" margin-top: 10px">
+                @Html.LabelFor(m => m.DateTo, "Дата отправки сообщения до")
+                @Html.TextBoxFor(m => m.DateTo, new { @id = "sessionDateTo" })
+            </div>
+            <div>
+                <input id="search" type="submit" value="Показать отчет" />
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#sessionDateFrom").kendoDatePicker({
+            dateInput: true,
+            format: 'dd/MM/yyyy'
+        });
+
+        $("#sessionDateTo").kendoDatePicker({
+            dateInput: true,
+            format: 'dd/MM/yyyy'
+        });
+    });
+</script>
+

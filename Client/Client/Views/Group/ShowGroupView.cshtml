@@ -1,0 +1,103 @@
+﻿@using Client.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.GroupModel
+
+<br>
+<center>
+    <h1>Просмотр Группы</h1>
+</center>
+<br>
+<form style="margin-left: 30px">
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-1 col-form-label">Название:</label>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(m => m.Name, new { @readonly = true, @class = "form-control-plaintext" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-1 col-form-label">Расписание:</label>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(m => m.Timetable, new { @readonly = true, @class = "form-control-plaintext" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-1 col-form-label">Описание:</label>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(m => m.Description, new { @readonly = true, @class = "form-control-plaintext" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-1 col-form-label">Педагог:</label>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(m => m.TeacherFio, new { @readonly = true, @class = "form-control-plaintext" })
+        </div>
+    </div>
+</form>
+@if (Session["userRole"].ToString() != "Parent")
+{
+<div style="margin-left: 30px; width: 400px">
+    @using (Html.BeginForm("AddChildInGroup", "ChildInGroup", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Ребенок: </span>
+            </div>
+            @Html.DropDownListFor(model => model.ChildId, Model.ChildrenAdd, new { @class = "custom-select" })
+        </div>
+        <input type="submit" class="btn btn-primary" value="Добавить Ребенка" />
+        @Html.HiddenFor(m => m.GroupId)
+        @Html.HiddenFor(m => m.TeacherFio)
+        @Html.HiddenFor(m => m.Description)
+        @Html.HiddenFor(m => m.Timetable)
+        @Html.HiddenFor(m => m.Name)
+    }
+</div>
+}
+
+<br>
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Дети в группе</h1>
+    </center>
+    <div id="container">
+        <div class="col-2" align="left">
+            <input class="form-control" type="text" placeholder="Search" id="search-text" onkeyup="tableSearch()">
+        </div>
+        <br>
+        <table class="table table-striped" id="info-table">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Пол</th>
+                    <th>Д/Р</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ChildModel item in @Model.Children)
+                {
+                    <tr>
+                        <td>@item.Fio</td>
+                        <td>@item.Gender</td>
+                        <td>@item.BirthsdayStr</td>
+                        <td>
+                            @if (Session["userRole"].ToString() != "Parent")
+                            {
+                                <div>
+                                    @Html.ActionLink("Delete", "DeleteChildInGroup", "ChildInGroup", new { ChildId = item.ChildId, GroupId = Model.GroupId }, new { @class = "btn btn-sm btn-outline-danger" })
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.ActionLink("Edit", "EditChild", "Child", item, new { @class = "btn btn-outline-warning" })
+                                </div>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br>
+        <br>
+    </div>
+</div>

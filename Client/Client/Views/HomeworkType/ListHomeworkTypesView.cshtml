@@ -1,0 +1,40 @@
+﻿@using Client.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<HomeworkTypeModel>
+
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Типы Домашних заданий</h1>
+        <h2>
+            <a href="@Url.Action("AddHomeworkType", "HomeworkType")">Добавить тип</a>
+        </h2>
+    </center>
+</div>
+
+<div style="margin: 0 auto; width: 300px">
+    <br>
+    <table class="table table-striped" id="info-table">
+        <thead>
+            <tr>
+                <th>Тип</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (HomeworkTypeModel item in @Model)
+            {
+                <tr>
+                    <td>@item.Type</td>
+                    <td>
+                        @Html.ActionLink("X", "DeleteHomeworkType", "HomeworkType", item, new { @class = "btn btn-sm btn-outline-danger" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.ActionLink("Edit", "EditHomeworkType", "HomeworkType", item, new { @class = "btn btn-outline-warning" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.AccountModel
+
+    <div class="jumbtron">
+        <br>
+        <center>
+            <h1>Персональные данные</h1>
+        </center>
+        <br>
+        <form style="margin-left: 30px">
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Логин</label>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.Login, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Пароль</label>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.Password, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Тип учетной записи</label>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.AccountType, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">ФИО</label>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.Fio, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Телефон</label>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.Phone, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.Email, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Дата Рождения</label>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.BirthsdayStr, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            @if (Model.AccountType == "Parent")
+            {
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Многодетная семья</label>
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(m => m.LargeFamilieStr, new { @readonly = true, @class = "form-control-plaintext" })
+                    </div>
+                </div>
+            }
+            @if (Model.AccountType == "Teacher")
+            {
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Портфолио</label>
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(m => m.Portfolio, new { @readonly = true, @class = "form-control-plaintext" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Стаж</label>
+                    <div class="col-sm-2">
+                        @Html.TextBoxFor(m => m.Experience, new { @readonly = true, @class = "form-control-plaintext" })
+                    </div>
+                </div>
+            }
+            @if (Model.AccountType == "Parent")
+            {
+                @Html.ActionLink("Показать детей", "ShowChildrenFromParent", "Child", new { parentId = Model.ParentId }, new { @class = "btn btn-sm btn-outline-danger" })
+            }
+            &nbsp;&nbsp;&nbsp;
+            @Html.ActionLink("Редактировать", "EditPersonalAccount", "PersonalAccount", Model, new { @class = "btn btn-sm btn-outline-danger" })
+        </form>
+    </div>

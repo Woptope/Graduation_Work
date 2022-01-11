@@ -1,0 +1,39 @@
+﻿@using Client.Models.ServerModels;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<EventType>
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Типы Мероприятий</h1>
+        <h2>
+            <a href="@Url.Action("AddEventType", "EventType")">Добавить тип</a>
+        </h2>
+    </center>
+</div>
+
+<div style="margin: 0 auto; width: 500px">
+    <br>
+    <table class="table table-striped" id="info-table">
+        <thead>
+            <tr>
+                <th>Тип</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EventType item in @Model)
+            {
+                <tr>
+                    <td>@item.Type</td>
+                    <td>
+                        @Html.ActionLink("X", "DeleteEventType", "EventType", item, new { @class = "btn btn-sm btn-outline-danger" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.ActionLink("Edit", "EditEventType", "EventType", item, new { @class = "btn btn-outline-warning" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

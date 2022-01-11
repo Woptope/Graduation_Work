@@ -1,0 +1,59 @@
+﻿@using Client.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<GroupModel>
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Группы</h1>
+        @if (Session["userRole"].ToString() != "Parent")
+        {
+            <h2>
+                <a href="@Url.Action("AddGroup", "Group")">Добавить группу</a>
+            </h2>
+        }
+    </center>
+    <div id="container">
+        <div class="col-2" align="left">
+            <input class="form-control" type="text" placeholder="Search" id="search-text" onkeyup="tableSearch()">
+        </div>
+        <br>
+        <table class="table table-striped" id="info-table">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Расписание</th>
+                    <th>Педагог</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (GroupModel item in @Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Timetable</td>
+                        <td>@item.TeacherFio</td>
+                        <td>
+                            @if (Session["userRole"].ToString() != "Parent")
+                            {
+                                <div>
+                                    @Html.ActionLink("X", "DeleteGroup", "Group", item, new { @class = "btn btn-sm btn-outline-danger" })
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    @Html.ActionLink("Изменить", "EditGroup", "Group", item, new { @class = "btn btn-outline-warning" })
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    @Html.ActionLink("Показать", "ShowGroup", "Group", item, new { @class = "btn btn-outline-info" })
+                                </div>
+                            }
+                            else 
+                            {
+                                @Html.ActionLink("Show", "ShowGroup", "Group", item, new { @class = "btn btn-outline-warning" })
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

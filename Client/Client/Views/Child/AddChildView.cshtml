@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.ChildModel
+
+<br>
+<center>
+    <h1>Добавление Ребенка</h1>
+</center>
+<div align="center">
+    @using (Html.BeginForm("AddChild", "Child", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table cellpadding="5" style="width: 20%">
+            @Html.HiddenFor(m => m.ChildId, new { id = "childId" })
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">ФИО: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Fio, new { @class = "form-control" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Д/Р: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Birthsday, new { @class = "form-control", id = "Birthsday" })
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Пол: </span>
+                        </div>
+                        @Html.DropDownListFor(m => m.Gender, new SelectList(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {Text = "М", Value = "м"},
+                                new SelectListItem() {Text = "Ж", Value = "ж"},
+                            }, "Value", "Text"), new { @class = "custom-select" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Мать: </span>
+                        </div>
+                        @Html.DropDownListFor(model => model.MotherId, Model.Parents, new { @class = "custom-select" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Отец: </span>
+                        </div>
+                        @Html.DropDownListFor(model => model.FatherId, Model.Parents, new { @class = "custom-select" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="submit" class="btn btn-primary" value="Добавить" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("#Birthsday").kendoDatePicker({
+            dateInput: false,
+            format: 'dd/MM/yyyy'
+        });
+    });
+</script>

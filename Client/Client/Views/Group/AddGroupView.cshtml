@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.GroupModel
+
+<br>
+<center>
+    <h1>Добавление Группы</h1>
+</center>
+<div align="center">
+    @using (Html.BeginForm("AddGroup", "Group", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table cellpadding="5" style="width: 20%">
+            @Html.HiddenFor(m => m.GroupId)
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Название: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Расписание: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Timetable, new { @class = "form-control", id = "Birthsday" })
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Описание: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", id = "Birthsday" })
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Педагог: </span>
+                        </div>
+                        @Html.DropDownListFor(model => model.TeacherId, Model.Teachers, new { @class = "custom-select" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="submit" class="btn btn-primary" value="Добавить" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+

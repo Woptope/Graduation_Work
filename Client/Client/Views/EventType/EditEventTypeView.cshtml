@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.ServerModels.EventType
+
+    <center>
+        <br>
+        <h1>Редактирование Типа Мероприятия</h1>
+    </center>
+    <div align="center">
+        @using (Html.BeginForm("UpdateEventType", "EventType", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <table cellpadding="5" style="width: 20%">
+                @Html.HiddenFor(m => m.Id)
+                <tr>
+                    <td>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Тип: </span>
+                            </div>
+                            @Html.TextBoxFor(m => m.Type, new { @class = "form-control" })
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center">
+                        <input type="submit" class="btn btn-primary" value="Изменить" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

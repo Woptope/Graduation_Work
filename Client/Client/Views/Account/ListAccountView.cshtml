@@ -1,0 +1,54 @@
+﻿@using Client.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<AccountModel>
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Пользователи</h1>
+        <h2>
+            <a href="@Url.Action("AddAccount", "Account")">Добавить пользователя</a>
+        </h2>
+    </center>
+    <div id="container">
+        <div class="col-2" align="left">
+            <input class="form-control" type="text" placeholder="Search" id="search-text" onkeyup="tableSearch()">
+        </div>
+        <br>
+        <table class="table table-striped" id="info-table">
+            <thead>
+                <tr>
+                    <th>Тип</th>
+                    <th>Логин</th>
+                    <th>ФИО</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Д/Р</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AccountModel item in @Model)
+                {
+                    <tr>
+                        <td>@item.AccountType</td>
+                        <td>@item.Login</td>
+                        <td>@item.Fio</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Email</td>
+                        <td>@item.BirthsdayStr</td>
+                        <td>
+                            @Html.ActionLink("X", "DeleteAccount", "Account", item, new { @class = "btn btn-sm btn-outline-danger" })
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.ActionLink("Edit", "EditAccount", "Account", item, new { @class = "btn btn-outline-warning" })
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.ActionLink("Show", "ShowAccount", "Account", item, new { @class = "btn btn-outline-warning" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

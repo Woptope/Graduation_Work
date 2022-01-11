@@ -1,0 +1,111 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.AccountModel
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Добавление нового пользователя</h1>
+    </center>
+    <br>
+    <div id="addForm">
+        @using (Html.BeginForm("AddAccount", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Логин</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder = "Enter Login" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Пароль</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Enter Password" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Тип учетной записи</label>
+                <div class="col-sm-3">
+                    @Html.DropDownListFor(model => model.AccountTypeId, Model.AccountTypes, new { @class = "custom-select", id = "CategoryTrees" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">ФИО</label>
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.Fio, new { @class = "form-control", placeholder = "Enter FIO" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Телефон</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Enter Phone" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter Email" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Дата Рождения</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Birthsday, new { @class = "form-control", id = "Birthsday", placeholder = "Enter Birthsday" })
+                </div>
+            </div>
+
+            <div style="display:none" id="blokone">
+                <div class="form-group row">
+                    <div class="col-sm-3">Многодетная семья</div>
+                    <div class="col-sm-1">
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.LargeFamilie, new { @class = "form-check-input" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:none" id="bloktwo">
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Стаж</label>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(m => m.Experience, new { @class = "form-control", placeholder = "Enter Experience" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Портфолио</label>
+                    <div class="col-sm-5">
+                        @Html.TextAreaFor(m => m.Portfolio, new { @class = "form-control", placeholder = "Enter Portfolio" })
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Добавить" style="margin-left: 100px;" />
+            @Html.HiddenFor(m => m.AccountId)
+            @Html.HiddenFor(m => m.AccountType)
+            @Html.HiddenFor(m => m.ParentId)
+            @Html.HiddenFor(m => m.UserId)
+        }
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#Birthsday").kendoDatePicker({
+            dateInput: false,
+            format: 'dd/MM/yyyy'
+        });
+    });
+</script>
+<script>
+    document.getElementById("CategoryTrees").onchange = function () {
+        var b = {
+            Parent: "blokone",
+            Teacher: "bloktwo"
+        }, c = this.options[this.selectedIndex].text,
+            a;
+        for (a in b) document.getElementById(b[a])
+            .style.display = 0 == c || c == a ? "block" : "none"
+    };
+</script>
+

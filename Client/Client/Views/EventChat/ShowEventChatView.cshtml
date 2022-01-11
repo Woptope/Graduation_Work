@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.EventChatModel
+
+    <div class="jumbtron">
+        <br>
+        <br>
+        <br>
+        <center>
+            <h1>Чат</h1>
+        </center>
+        <form style="margin-left: 30px; margin-top: 10px;">
+            <div class="form-group row">
+                <b><label class="col-sm-1 col-form-label">Название:</label></b>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.Name, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <b><label class="col-sm-2 col-form-label">Дата:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></b>
+                <div class="col-sm-2">
+                    @Html.TextBoxFor(m => m.EventDateTimeStr, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <b><label class="col-sm-2 col-form-label">Тип:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></b>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(m => m.EventType, new { @readonly = true, @class = "form-control-plaintext" })
+                </div>
+            </div>
+        </form>
+
+        <div style="margin-left: 20px; width: 700px">
+            @using (Html.BeginForm("SendMessage", "EventChat", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(m => m.EventId)
+                <div class="input-group mb-3" style=" width: 330px">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Тип сообщения: </span>
+                    </div>
+                    @Html.DropDownListFor(model => model.MessageTypeId, Model.MessageTypes, new { @class = "form-control", id = "type" })
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Сообщение</label>
+                    @Html.TextAreaFor(m => m.MessageText, new { @class = "form-control", id = "exampleInputEmail1" })
+                </div>
+                <div class="form-group form-check">
+                    @Html.CheckBoxFor(m => m.IsAnonymous, new { @class = "form-check-input", id = "exampleCheck1" })
+                    <label class="form-check-label" for="exampleCheck1">Анонимно</label>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Отправить" />
+            }
+        </div>
+        <br>
+        <br>
+        <div class="form-group" style="margin-left: 20px; width: 700px">
+            <label for="chat">Чат</label>
+            @Html.TextAreaFor(m => m.Messages, new { @class = "form-control", id = "chat", rows = "30" })
+        </div>
+        <br>
+        <br>
+    </div>
+

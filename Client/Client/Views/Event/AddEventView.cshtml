@@ -1,0 +1,84 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.EventModel
+
+<br>
+<center>
+    <h1>Добавление Мероприятия</h1>
+</center>
+<div align="center">
+    @using (Html.BeginForm("AddEvent", "Event", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table cellpadding="5" style="width: 25%">
+            @Html.HiddenFor(m => m.EventId)
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Название: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Описание: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Дата: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.EventDateTime, new { @class = "form-control", id = "HomeWorkDateTime" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Тип: </span>
+                        </div>
+                        @Html.DropDownListFor(model => model.EventTypeId, Model.EventTypes, new { @class = "custom-select" })
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Группы: </span>
+                        </div>
+                        @Html.ListBoxFor(model => model.GroupIds, Model.Groups, new { @class = "custom-select" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="submit" class="btn btn-primary" value="Добавить" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("#HomeWorkDateTime").kendoDatePicker({
+            dateInput: true,
+            format: 'dd/MM/yyyy'
+        });
+    });
+</script>
+

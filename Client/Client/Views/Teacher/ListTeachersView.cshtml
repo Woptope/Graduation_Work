@@ -1,0 +1,42 @@
+﻿@using Client.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<AccountModel>
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Педагоги</h1>
+    </center>
+    <div style="margin: 0 auto; width: 900px">
+        <div class="col-2" align="left">
+            <input class="form-control" type="text" placeholder="Search" id="search-text" onkeyup="tableSearch()">
+        </div>
+        <br>
+        <table class="table table-striped" id="info-table">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Д/Р</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AccountModel item in @Model)
+                {
+                <tr>
+                    <td>@item.Fio</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Email</td>
+                    <td>@item.BirthsdayStr</td>
+                    <td>
+                        @Html.ActionLink("Показать", "ShowTeacher", "Teacher", item, new { @class = "btn btn-outline-warning" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>

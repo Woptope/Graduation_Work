@@ -1,0 +1,70 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.ChildModel
+
+<br>
+<center>
+    <h1>Редактирование Ребенка</h1>
+</center>
+<div align="center">
+    @using (Html.BeginForm("UpdateChild", "Child", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table cellpadding="5" style="width: 20%">
+            @Html.HiddenFor(m => m.ChildId, new { id = "childId" })
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">ФИО: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Fio, new { @class = "form-control" })
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Д/Р: </span>
+                        </div>
+                        @Html.TextBoxFor(m => m.Birthsday, new { @class = "form-control", Value = Model.Birthsday != null ? Model.Birthsday.Value.ToString("d") : "", id = "Birthsday" })
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Пол: </span>
+                        </div>
+                        @Html.DropDownListFor(m => m.Gender, new SelectList(new List<SelectListItem>()
+                            {
+                                new SelectListItem() {Text = "М", Value = "м"},
+                                new SelectListItem() {Text = "Ж", Value = "ж"},
+                            }, "Value", "Text"), new { @class = "custom-select" })
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center">
+                    <input type="submit" class="btn btn-primary" value="Изменить" />
+                </td>
+            </tr>
+        </table>
+        @Html.HiddenFor(m => m.FatherId)
+        @Html.HiddenFor(m => m.MotherId)
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("#Birthsday").kendoDatePicker({
+            dateInput: false,
+            format: 'dd/MM/yyyy'
+        });
+    });
+</script>
+

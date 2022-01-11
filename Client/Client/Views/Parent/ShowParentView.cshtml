@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Client.Models.AccountModel
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Просмотр Родителя</h1>
+    </center>
+    <br>
+    <form style="margin-left: 30px; font-size: 15pt">
+        <div class="form-group row">
+            <b><label  class="col-sm-2 col-form-label">Логин:</label></b>
+            
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.Login, new { @readonly = true, @class = "form-control-plaintext", style = "font-size: 15pt " })
+            </div>
+        </div>
+        <div class="form-group row">
+            <b><label  class="col-sm-2 col-form-label">Пароль:</label></b>
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.Password, new { @readonly = true, @class = "form-control-plaintext", style = "font-size: 15pt " })
+            </div>
+        </div>
+        <div class="form-group row">
+            <b><label for="staticEmail" class="col-sm-2 col-form-label">ФИО:</label></b>
+            
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.Fio, new { @readonly = true, @class = "form-control-plaintext", style = "font-size: 15pt " })
+            </div>
+        </div>
+        <div class="form-group row">
+            <b><label for="staticEmail" class="col-sm-2 col-form-label">Телефон:</label></b>
+            
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.Phone, new { @readonly = true, @class = "form-control-plaintext", style = "font-size: 15pt " })
+            </div>
+        </div>
+        <div class="form-group row">
+            <b><label for="staticEmail" class="col-sm-2 col-form-label">Email:</label></b>
+            
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.Email, new { @readonly = true, @class = "form-control-plaintext", style = "font-size: 15pt " })
+            </div>
+        </div>
+        <div class="form-group row">
+            <b><label for="staticEmail" class="col-sm-2 col-form-label">Дата Рождения:</label></b>
+            
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.BirthsdayStr, new { @readonly = true, @class = "form-control-plaintext", style = "font-size: 15pt " })
+            </div>
+        </div>
+        <div class="form-group row">
+            <b><label for="staticEmail" class="col-sm-2 col-form-label">Многодетная семья:</label></b>
+            
+            <div class="col-sm-2">
+                @Html.TextBoxFor(m => m.LargeFamilieStr, new { @readonly = true, @class = "form-control-plaintext" })
+            </div>
+        </div>
+        @Html.ActionLink("Показать детей", "ShowChildrenFromParent", "Child", new { parentId = Model.ParentId }, new { @class = "btn btn-outline-danger" })
+    </form>
+</div>
+

@@ -1,0 +1,40 @@
+﻿@using Client.Models.ServerModels;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<MessageType>
+
+
+<div class="jumbtron">
+    <br>
+    <center>
+        <h1>Типы Мероприятий</h1>
+        <h2>
+            <a href="@Url.Action("AddMessageType", "MessageType")">Добавить тип</a>
+        </h2>
+    </center>
+</div>
+
+<div style="margin: 0 auto; width: 300px">
+    <br>
+    <table class="table table-striped" id="info-table">
+        <thead>
+            <tr>
+                <th>Тип</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MessageType item in @Model)
+            {
+                <tr>
+                    <td>@item.Type</td>
+                    <td>
+                        @Html.ActionLink("X", "DeleteMessageType", "MessageType", item, new { @class = "btn btn-sm btn-outline-danger" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.ActionLink("Edit", "EditMessageType", "MessageType", item, new { @class = "btn btn-outline-warning" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
